@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LibraryProjectForInterView.ViewModel.Shelves_ViewModel>
+@{
+    ViewData["Title"] = "Shelves";
+}
+<div class="d-grid gap-2 d-md-flex mb-3">
+    <dv class="col-6"><h5><i class="mdi mdi-view-list text-danger"></i> Shelves</h5></dv>
+    <div class=" col-md-6 col-sm-12 d-grid   d-flex justify-content-end">
+        <a asp-action="Create" asp-controller="Shelves" class="btn btn-warning"><i class="mdi mdi-plus-box"></i> New Shelf</a>
+    </div> 
+</div>
+<table id="racktable" class="display nowrap table-responsive" style="width:100%">
+        <thead>
+            <tr>
+                <th>Rack Code</th>
+                <th>Shelf Code</th>
+                <th></th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var shelf in Model)
+            {
+            <tr>
+                <td>@shelf.RackCode</td>
+                <td>@shelf.Code</td>
+                <td class="text-end">
+                    <a class="btn btn-xm bg-warning" asp-route-ShelfId="@shelf.ShelfId" asp-action="edit" asp-controller="Shelves"><i class="mdi mdi-table-edit"></i><small>Edit</small></a>
+                    |<a class="btn btn-xm bg-danger" asp-route-ShelfId="@shelf.ShelfId" asp-action="delete" asp-controller="Shelves"><i class="mdi mdi-delete-forever"></i><small>Delete</small>                    </a>
+                    |<a class="btn btn-xm bg-success" asp-route-ShelfId="@shelf.ShelfId" asp-action="details" asp-controller="Shelves"><i class="mdi mdi-eye"></i>  <small>Detail</small> </a>
+                </td>
+                
+
+            </tr>
+            }
+         
+        </tbody>
+         
+    </table>
+ 
+@section scripts
+{
+<script>
+       $(document).ready(function() {
+            $('#racktable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          /*  'copy', 'csv', 'excel',*/ 'pdf'/*, 'print'*/
+        ]
+    } );
+} );
+</script>
+}

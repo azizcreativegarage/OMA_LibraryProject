@@ -1,0 +1,69 @@
+﻿@model LibraryProjectForInterView.ViewModel.Rack_ViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form id="createForm" enctype="multipart/form-data" asp-action="Create" asp-controller="Shelves" data-ajax-begin="onBegin" data-ajax="true" data-ajax-method="post" data-ajax-start data-ajax-complete="GroupComplete">
+    <div class="grid-margin">
+        <div class="card flex-column">
+            <div class="card-header row col-12 bg-info">
+                <div class="col-6">
+                    <h5 class="text-white">
+                        <i class="mdi mdi-border-all text-white"></i> New Shelves
+                    </h5>
+                </div>
+                <div class="col-6 text-end">
+                    <a class="text-white" asp-action="Index" asp-controller="Shelves"><i class="text-white mdi mdi-step-backward"></i> Back</a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group mt-2" data-select2-id="7">
+                    <label class="form-label">Select Rack</label>
+                    <select asp-for="RackId" asp-items="ViewBag.RackDDL" class="form-select" aria-label="Default select example">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Code</label>
+
+                    <input required="required" asp-for="Code" class="form-control" type="text" placeholder="Default input" aria-label="Enter Code">
+                    <span class="text-danger col-12" asp-validation-for="Code">  </span>
+                </div>
+
+                <button type="submit" class="btn btn-success mr-2"> <i class="mdi mdi-content-save"></i> Save </button>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    function onBegin() {
+
+        $("#saveButtonDis_btn").prop("disabled", true);
+
+
+
+    }
+</script>
+@section scripts
+    {
+    <script>
+        function GroupComplete(response) {
+            var response = response.responseJSON;
+            if (response.returnStatus == 0 || response.status == true) {
+                swal("Success", response.message, "success");
+                setTimeout(function () {
+                    window.location.href = "/Shelves/index"//response.redirectLink;
+                }, 2000);
+            }
+            else {
+                swal("Error!", response.message, "error");
+                $("#saveButtonDis_btn").prop("disabled", false)
+            }
+            //$("#SubmitButton").removeAttr('disabled');
+
+        }
+    </script>
+}

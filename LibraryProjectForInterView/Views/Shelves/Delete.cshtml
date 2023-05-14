@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+@model LibraryProjectForInterView.ViewModel.Shelves_ViewModel
+<h1>Delete</h1>
+
+<form id="createForm" enctype="multipart/form-data" asp-action="Delete" asp-controller="Shelves"  data-ajax="true" data-ajax-method="post" data-ajax-start data-ajax-complete="GroupComplete">
+    <div class="grid-margin">
+        <div class="card flex-column">
+            <div class="card-header row col-12 bg-info">
+                <div class="col-6">
+                    <h5 class="text-white">
+                        <i class="mdi mdi-border-all text-white"></i> Delete Shelf
+                    </h5>
+                </div>
+                <div class="col-6 text-end">
+                    <a class="text-white" asp-action="Index" asp-controller="Shelves"><i class="text-white mdi mdi-step-backward"></i> Back</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <input type="hidden" asp-for="ShelfId" />
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Code</label>
+                    <input readonly="readonly" asp-for="Code" type="text" class="form-control" id="codeId" placeholder="Code" />
+              
+                </div>
+
+                <button type="submit" class="btn btn-danger mr-2"> <i class="mdi mdi-border-color"></i> Delete </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+ 
+@section scripts
+    {
+
+    <script>
+
+
+        function GroupComplete(response) {
+            var response = response.responseJSON;
+            if (response.returnStatus == 0 || response.status == true) {
+                swal("Success", response.message, "success");
+                setTimeout(function () {
+                    window.location.href = "/Shelves/index"//response.redirectLink;
+                }, 2000);
+            }
+            else {
+                swal("Error!", response.message, "error");
+             
+            }
+            //$("#SubmitButton").removeAttr('disabled');
+
+        }
+    </script>
+}

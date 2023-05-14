@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LibraryProjectForInterView.ViewModel.Rack_ViewModel>
+@{
+    ViewData["Title"] = "Rack";
+}
+<div class="d-grid gap-2 d-md-flex mb-3">
+    <dv class="col-6"><h5><i class="mdi mdi-view-list text-danger"></i> Rack</h5></dv>
+    <div class=" col-md-6 col-sm-12 d-grid   d-flex justify-content-end">
+        <a asp-action="Create" asp-controller="Racks" class="btn btn-warning"><i class="mdi mdi-plus-box"></i> New Rack</a>
+    </div> 
+</div>
+<table id="racktable" class="display nowrap table-responsive" style="width:100%">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th></th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var rack in Model)
+            {
+            <tr>
+                <td>@rack.Code</td>
+                <td class="text-end">
+                 <a class="btn btn-xm bg-warning"     asp-route-RackId="@rack.RackId" asp-action="edit" asp-controller="Racks"><i class="mdi mdi-table-edit"></i><small>Edit</small></a>
+                    |<a class="btn btn-xm bg-danger" asp-route-RackId="@rack.RackId" asp-action="delete" asp-controller="Racks"><i class="mdi mdi-delete-forever"></i><small>Delete</small>                    </a>
+                    |<a class="btn btn-xm bg-success" asp-route-RackId="@rack.RackId" asp-action="details" asp-controller="Racks"><i class="mdi mdi-eye"></i>  <small>Detail</small> </a>
+                </td>
+                
+
+            </tr>
+            }
+         
+        </tbody>
+         
+    </table>
+ 
+@section scripts
+{
+<script>
+       $(document).ready(function() {
+            $('#racktable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          /*  'copy', 'csv', 'excel',*/ 'pdf'/*, 'print'*/
+        ]
+    } );
+} );
+</script>
+}
